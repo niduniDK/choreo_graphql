@@ -1,0 +1,4 @@
+[package]
+org = "niduni"
+name = "choreo_graphql"
+version = "1.0.0"
