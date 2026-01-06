@@ -20,3 +20,21 @@ paths:
             text/plain:
               schema:
                 type: string
+
+
+  /user:
+    post:
+      operationId: getUser
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: Ok
+          content:
+            text/plain:
+              schema:
+                type: string

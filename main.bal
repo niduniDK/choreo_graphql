@@ -27,3 +27,23 @@ service / on new graphql:Listener(8090) {
         return "User created with name: " + name;
     }
 }
+
+service /user on new graphql:Listener(8091) {
+
+    # A resource for fetching user details
+    # Example query:
+    #   query GetUser{ 
+    #     userDetails(id: 1) 
+    #   }
+    # Curl command: 
+    #   curl -X POST -H "Content-Type: application/json" -d '{"query": "query GetUser{ userDetails(id:1) }"}' http://localhost:8091
+    #
+    # + name - the input string name
+    # + return - string with user details or error
+    resource function get userDetails(string name) returns string|error {
+        if name is "" {
+            return error("name should not be empty!");
+        }
+        return "User details for user id: " + name;
+    }
+}
