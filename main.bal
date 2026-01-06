@@ -37,17 +37,17 @@ public distinct service class CovidData {
 
 service /covid19 on new graphql:Listener(9090) {
 
-    /// Retrieves all COVID-19 data entries for all countries
-    /// 
-    /// + return - An array of CovidData objects containing statistics for all countries
+    # Retrieves all COVID-19 data entries for all countries
+    # 
+    # + return - An array of CovidData objects containing statistics for all countries
     resource function get all() returns CovidData[] {
         return from CovidEntry entry in covidEntriesTable select new (entry);
     }
 
-    /// Filters and retrieves COVID-19 data for a specific country by ISO code
-    /// 
-    /// + isoCode - The ISO country code to filter by (e.g., "US", "AFG", "SL")
-    /// + return - CovidData object for the specified country, or null if not found
+    # Filters and retrieves COVID-19 data for a specific country by ISO code
+    # 
+    # + isoCode - The ISO country code to filter by (e.g., "US", "AFG", "SL")
+    # + return - CovidData object for the specified country, or null if not found
     resource function get filter(string isoCode) returns CovidData? {
         if covidEntriesTable.hasKey(isoCode) {
             return new CovidData(covidEntriesTable.get(isoCode));
@@ -55,10 +55,10 @@ service /covid19 on new graphql:Listener(9090) {
         return;
     }
 
-    /// Adds a new COVID-19 data entry for a country
-    /// 
-    /// + entry - The COVID-19 entry containing country information and statistics
-    /// + return - The newly added CovidData object
+    # Adds a new COVID-19 data entry for a country
+    # 
+    # + entry - The COVID-19 entry containing country information and statistics
+    # + return - The newly added CovidData object
     remote function add(CovidEntry entry) returns CovidData {
         covidEntriesTable.add(entry);
         return new CovidData(entry);
