@@ -1,66 +1,29 @@
 import ballerina/graphql;
 
-public type CovidEntry record {|
-    readonly string isoCode;
-    string country;
-    int cases?;
-    int deaths?;
-    int recovered?;
-    int active?;
-|};
+# A service representing a network-accessible GraphQL API
+service / on new graphql:Listener(8090) {
 
-final table<CovidEntry> key(isoCode) covidEntriesTable = table [
-    {isoCode: "AFG", country: "Afghanistan", cases: 159303, deaths: 7386, recovered: 146084, active: 5833},
-    {isoCode: "SL", country: "Sri Lanka", cases: 598536, deaths: 15243, recovered: 568637, active: 14656},
-    {isoCode: "US", country: "USA", cases: 69808350, deaths: 880976, recovered: 43892277, active: 25035097}
-];
-
-public distinct service class CovidData {
-    private final readonly & CovidEntry entryRecord;
-
-    function init(CovidEntry entryRecord) {
-        self.entryRecord = entryRecord.cloneReadOnly();
-    }
-
-    resource function get isoCode() returns string => self.entryRecord.isoCode;
-
-    resource function get country() returns string => self.entryRecord.country;
-
-    resource function get cases() returns int? => self.entryRecord.cases;
-
-    resource function get deaths() returns int? => self.entryRecord.deaths;
-
-    resource function get recovered() returns int? => self.entryRecord.recovered;
-
-    resource function get active() returns int? => self.entryRecord.active;
-}
-
-service /covid19 on new graphql:Listener(9090) {
-
-    /// Retrieves all COVID-19 data entries for all countries
-    /// 
-    /// + return - An array of CovidData objects containing statistics for all countries
-    resource function get all() returns CovidData[] {
-        return from CovidEntry entry in covidEntriesTable select new (entry);
-    }
-
-    /// Filters and retrieves COVID-19 data for a specific country by ISO code
-    /// 
-    /// + isoCode - The ISO country code to filter by (e.g., "US", "AFG", "SL")
-    /// + return - CovidData object for the specified country, or null if not found
-    resource function get filter(string isoCode) returns CovidData? {
-        if covidEntriesTable.hasKey(isoCode) {
-            return new CovidData(covidEntriesTable.get(isoCode));
+    # A resource for generating greetings
+    # Example query:
+    #   query GreetWorld{ 
+    #     greeting(name: "World") 
+    #   }
+    # Curl command: 
+    #   curl -X POST -H "Content-Type: application/json" -d '{"query": "query GreetWorld{ greeting(name:\"World\") }"}' http://localhost:8090
+    # 
+    # + name - the input string name
+    # + return - string name with greeting message or error
+    resource function get greeting(string name) returns string|error {
+        if name is "" {
+            return error("name should not be empty!");
         }
-        return;
+        return "Hello, " + name;
     }
 
-    /// Adds a new COVID-19 data entry for a country
-    /// 
-    /// + entry - The COVID-19 entry containing country information and statistics
-    /// + return - The newly added CovidData object
-    remote function add(CovidEntry entry) returns CovidData {
-        covidEntriesTable.add(entry);
-        return new CovidData(entry);
+    remote function createUser(string name) returns string|error {
+        if name is "" {
+            return error("name should not be empty!");
+        }
+        return "User created with name: " + name;
     }
 }
