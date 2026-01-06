@@ -12,7 +12,7 @@ endpoints:
     type: GraphQL
     networkVisibilities: 
       - Public
-    schemaFilePath: schema_greeting.graphql
+    schemaFilePath: openapi.yaml
 
   # Second Endpoint: The user service on port 8091
   - name: user_service
@@ -23,4 +23,4 @@ endpoints:
     type: GraphQL
     networkVisibilities: 
       - Public
-    schemaFilePath: schema_user.graphql
+    schemaFilePath: openapi.yaml
