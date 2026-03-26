@@ -1,6 +1,6 @@
 import ballerina/http;
 
-listener http:Listener probeEP = new (9091, config = {host: "pets-tore.swagger.io"});
+listener http:Listener probeEP = new (9091);
 
 service /probes on probeEP {
     resource function get healthz() returns boolean {
