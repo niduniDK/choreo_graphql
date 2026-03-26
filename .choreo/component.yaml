@@ -12,8 +12,7 @@ endpoints:
     type: GraphQL
     networkVisibilities: 
       - Public
-    schemaFilePath: openapi.yaml
-
+    
   # Second Endpoint: The user service on port 8091
   - name: user_service
     displayName: Ballerina User Details GraphQL
@@ -23,4 +22,13 @@ endpoints:
     type: GraphQL
     networkVisibilities: 
       - Public
-    schemaFilePath: openapi.yaml
+    
+    - name: covid_data
+    displayName: Ballerina Covid Data Http
+    service:
+      basePath: /probes
+      port: 8091
+    type: REST
+    networkVisibilities: 
+      - Public
+    
