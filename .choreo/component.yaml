@@ -24,7 +24,7 @@ endpoints:
       - Public
     
   - name: covid_data
-    displayName: Ballerina Covid Data Http
+    displayName: Ballerina Various Covid Data Http
     service:
       basePath: /probes
       port: 9091
