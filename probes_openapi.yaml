@@ -1,0 +1,32 @@
+openapi: 3.0.1
+info:
+  title: Probes
+  version: 1.0.0
+servers:
+- url: "{server}:{port}/probes"
+  variables:
+    server:
+      default: http://localhost
+    port:
+      default: "9091"
+paths:
+  /healthz:
+    get:
+      operationId: getHealthz
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: boolean
+  /readyz:
+    get:
+      operationId: getReadyz
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: boolean

@@ -29,5 +29,5 @@ endpoints:
     type: REST
     networkVisibilities: 
       - Public
-    schemaFilePath: openapi.yaml
+    schemaFilePath: probes_openapi.yaml
     
