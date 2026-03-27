@@ -21,7 +21,7 @@ endpoints:
       port: 8091
     type: GraphQL
     networkVisibilities: 
-      - Public
+      - Project
     
   - name: covid_data
     displayName: Ballerina Various Covid Data Http
