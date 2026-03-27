@@ -1,4 +1,5 @@
 import ballerina/graphql;
+import ballerina/http;
 
 # A service representing a network-accessible GraphQL API
 service / on new graphql:Listener(8090) {
@@ -47,8 +48,6 @@ service /user on new graphql:Listener(8091) {
         return "User details for user id: " + name;
     }
 }
-
-import ballerina/http;
 
 listener http:Listener probeEP = new (9091);
 
