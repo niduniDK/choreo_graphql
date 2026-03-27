@@ -1,8 +1,6 @@
 import ballerina/http;
 
-listener http:Listener probeEP = new (9091);
-
-service /probes on probeEP {
+service /probes on new http:Listener(9091) {
     resource function get healthz() returns boolean {
         return true;
     }
