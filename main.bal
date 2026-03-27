@@ -1,10 +1,8 @@
 import ballerina/graphql;
 import ballerina/http;
 
-listener http:Listener probeEP = new (9091);
-
 # A service representing a network-accessible GraphQL API
-service / on new graphql:Listener(8090) {
+service / on new http:Listener(8090) {
 
     # A resource for generating greetings
     # Example query:
@@ -50,13 +48,3 @@ service /user on new graphql:Listener(8091) {
         return "User details for user id: " + name;
     }
 }
-
-service /probes on probeEP {
-    resource function get healthz() returns boolean {
-        return true;
-    }
-    resource function get readyz() returns boolean {
-        return true;
-    }
-}
-
